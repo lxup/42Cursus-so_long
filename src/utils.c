@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/27 18:18:26 by lquehec           #+#    #+#             */
-/*   Updated: 2023/11/30 21:07:29 by lquehec          ###   ########.fr       */
+/*   Created: 2023/11/30 18:48:47 by lquehec           #+#    #+#             */
+/*   Updated: 2023/11/30 18:48:56 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	ft_error(int error, char *param)
+
+t_list	*ft_lstnew(void *content)
 {
-	if (error == MEMORY_ERR)
-		ft_putstr_fd("DAMN, no memory left on device", 2);
-	if (error == ARGS_ERR)
-		ft_putstr_fd("Mhh, bro...give me valid arguments, like: ", 2);
-	if (error == FILE_ERR)
-		ft_putstr_fd("Well, there is something wrong with this file: ", 2);
-	if (error == MAP_ERR)
-		ft_putstr_fd("Ur map suck bro: ", 2);
-	if (param)
-		ft_putstr_fd(param, 2);
-	ft_putstr_fd("\n", 2);
+	t_list	*new_lst;
+
+	new_lst = (t_list *)malloc(sizeof(t_list));
+	if (!new_lst)
+		return (NULL);
+	new_lst->content = content;
+	new_lst->next = NULL;
+	return (new_lst);
 }
