@@ -6,7 +6,7 @@
 /*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:43:05 by lquehec           #+#    #+#             */
-/*   Updated: 2023/11/30 21:31:56 by lquehec          ###   ########.fr       */
+/*   Updated: 2023/11/30 22:05:59 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef struct s_map
 {
 	t_vector			*size;
 	t_list				*items;
+	// char				**items;
 	int					e_count;
 	int					p_count;
 	int					c_count;
@@ -103,7 +104,7 @@ void	ft_error(int error, char *param);
 // FREE
 void	ft_free_game(t_game *game);
 void	ft_free_map(t_map *map);
-void	ft_free_matrix(void ***matrix);
+void	ft_free_matrix(char ***matrix);
 
 // MAP
 void	ft_get_map(t_game *game, char *map_path);

@@ -6,7 +6,7 @@
 /*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 19:33:10 by lquehec           #+#    #+#             */
-/*   Updated: 2023/11/30 21:37:01 by lquehec          ###   ########.fr       */
+/*   Updated: 2023/11/30 22:07:20 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,15 @@ void	ft_check_map_elem(t_game *game, char c, int pos[2])
 		ft_exit(game, MAP_ERR, "Invalid character, use only E, P, C, 1, 0");
 }
 
-void	ft_check_map_solvability(t_game *game, int pos[2])
+int	is_valid_move(t_game *game, int x, int y)
 {
-	(void)game, (void)pos;
-	
-	
+	return (x >= 0 && x < game->map->size->x && y >= 0 && y < game->map->size->y);
+}
+
+int	ft_check_map_solvability(t_game *game, int x, int y)
+{
+	(void)game, (void)x, (void)y;
+	return (1);
 }
 
 void	ft_check_map(t_game *game)
@@ -92,8 +96,7 @@ void	ft_check_map(t_game *game)
 	}
 	if (game->map->e_count != 1 || game->map->p_count != 1 || game->map->c_count < 1)
 		ft_exit(game, MAP_ERR, "Invalid map settings number.");
-	pos[0] = 0;
-	pos[1] = 0;
-	ft_check_map_solvability(game, pos);
+	if (!ft_check_map_solvability(game, 0, 0))
+		ft_exit(game, MAP_ERR, "Cannot solve the map.");
 }
 /* ********************************MAP CHECKER******************************* */

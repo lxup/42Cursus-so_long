@@ -6,13 +6,13 @@
 /*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 18:18:34 by lquehec           #+#    #+#             */
-/*   Updated: 2023/11/30 21:34:31 by lquehec          ###   ########.fr       */
+/*   Updated: 2023/11/30 22:07:00 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	ft_free_matrix(void ***matrix)
+void	ft_free_matrix(char ***matrix)
 {
 	int	i;
 
@@ -22,7 +22,8 @@ void	ft_free_matrix(void ***matrix)
 		free(matrix[0][i]);
 		i++;
 	}
-	free(matrix[0]);
+	if (matrix && matrix[0])
+		free(matrix[0]);
 	matrix = NULL;
 }
 
@@ -34,6 +35,14 @@ void	ft_free_map(t_map *map)
 		free(map->size);
 	free(map);
 }
+// void	ft_free_map(t_map *map)
+// {
+// 	if (map->items)
+// 		ft_free_matrix(&map->items);
+// 	if (map->size)
+// 		free(map->size);
+// 	free(map);
+// }
 
 void	ft_free_player(t_char *player)
 {
