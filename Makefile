@@ -6,7 +6,7 @@
 #    By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/27 17:38:15 by lquehec           #+#    #+#              #
-#    Updated: 2023/12/01 16:23:19 by lquehec          ###   ########.fr        #
+#    Updated: 2023/12/01 19:55:21 by lquehec          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,8 @@ SRCS 		= $(addprefix $(SRCS_DIR),\
 				free.c \
 				map_get.c \
 				map_check.c \
+				render.c \
+				gameplay.c \
 				map_utils.c \
 				mlx.c \
 				utils.c )

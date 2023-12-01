@@ -6,7 +6,7 @@
 /*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:43:05 by lquehec           #+#    #+#             */
-/*   Updated: 2023/12/01 16:36:43 by lquehec          ###   ########.fr       */
+/*   Updated: 2023/12/01 19:56:55 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,36 @@
 // A DELETTTTEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
 # include <stdio.h>
 
-// PROJECT
+/* ==================== PROJECT SETTINGS ====================*/
 # define FILE_EXTENSION		".ber"
-# define WINDOW_TITLE		"salam"
-# define WINDOW_WIDTH		1920
-# define WINDOW_HEIGHT		1080
+# define WINDOW_TITLE		"so_long"
 
+// SOURCES
+# define WALL_XPM			"./assets/wall/wall_1.xpm"
+# define FLOOR_XPM			"./assets/floor/floor_1.xpm"
+# define COINS_XPM			"./assets/coins/coin_1.xpm"
+# define EXIT_XPM			"./assets/exit/exit_1.xpm"
+# define PLAYER_FRONT_XPM	"./assets/exit/exit_1.xpm"
+# define PLAYER_BACK_XPM	"./assets/exit/exit_1.xpm"
+# define PLAYER_LEFT_XPM	"./assets/exit/exit_1.xpm"
+# define PLAYER_RIGHT_XPM	"./assets/exit/exit_1.xpm"
+
+// MAP SETTINGS
+# define WALL				'1'
+# define FLOOR 				'0'
+# define COINS  			'C'
+# define PLAYER				'P'
+# define EXIT 		 		'E'
+
+// DIRECTIONS
+# define DIRECTION_TOP	1
+# define DIRECTION_BOT		2
+# define DIRECTION_LEFT		3
+# define DIRECTION_RIGHT	4
+
+// KEYS
 # define KEY_ESC			65307
+# define KEY_Q				113
 # define KEY_W				119
 # define KEY_A				97
 # define KEY_S				115
@@ -52,6 +75,10 @@
 # define KEY_ARROW_BOT		65364
 # define KEY_ARROW_LEFT		65361
 # define KEY_ARROW_RIGHT	65363
+
+# define IMG_WIDTH			32
+# define IMG_HEIGHT			32
+/* ==================== PROJECT SETTINGS ====================*/
 
 // Error handling
 enum e_errors
@@ -65,7 +92,8 @@ enum e_errors
 	MAP_ERR = -20,
 	// MLX ERROR BEGIN AT -30
 	MLX_INIT_ERR = -30,
-	MLX_NEW_WINDOW_ERR = -31,
+	SPRITE_NEW_ERR = -31,
+	MLX_NEW_WINDOW_ERR = -40,
 };
 
 typedef struct s_vector
@@ -86,9 +114,13 @@ typedef struct s_image {
 // ASSETS
 typedef struct s_char
 {
-	t_image		*sprite;
+	t_image		sprite_front;
+	t_image		sprite_back;
+	t_image		sprite_left;
+	t_image		sprite_right;
 	int			direction;
-	t_vector	*position;
+	t_vector	position;
+	int			moves_count;
 }	t_char;
 
 typedef struct s_map
@@ -101,13 +133,21 @@ typedef struct s_map
 	int			c_count;
 }	t_map;
 
+typedef struct s_textures
+{
+	t_image		wall;
+	t_image		floor;
+	t_image		coins;
+	t_image		exit;
+}	t_textures;
+
 typedef struct s_game
 {
-	void		*mlx_ptr; // MLX pointer
-	void		*win_ptr; // MLX window pointer
+	void		*mlx_ptr;
+	void		*win_ptr;
 	t_map		*map;
 	t_char		*player;
-	int			total_moves;
+	t_textures	*textures;
 }	t_game;
 
 // INIT
@@ -115,8 +155,10 @@ t_game	*ft_init(void);
 t_game	*ft_init_game(void);
 t_map	*ft_init_map(t_game *game);
 
-// INIT GAME
+// MLX
 void	ft_init_mlx(t_game *game);
+void	ft_init_sprites(t_game *game);
+t_image	ft_new_sprite(char *path, t_game *game);
 
 // EXIT
 void	*ft_exit(t_game *game, int error, char *param);
@@ -127,15 +169,22 @@ void	ft_error(int error, char *param);
 // FREE
 void	ft_free_game(t_game *game);
 void	ft_free_map(t_map *map);
-// void	ft_free_matrix(char ***matrix);
-void	ft_free_matrix(char **matrix);
-void	ft_free_matrix_with_indice(char **matrix, int i);
 
 // MAP_GET
 void	ft_get_map(t_game *game, char *map_path);
 
 // MAP_CHECK
 void	ft_check_map(t_game *game);
+
+// RENDER
+int		render(t_game *game);
+void	ft_identify_sprite(t_game *game, int y, int x);
+void	ft_render_sprite(t_game *game, t_image sprite, int line, int column);
+void	ft_render_player(t_game *game, int y, int x);
+
+// GAMEPLAY
+void	player_move(t_game *game, int y, int x, int direction);
+int		on_keypress(int keycode, t_game *game);
 
 // MAP_UTILS
 int		is_valid_move(t_game *game, char **map, int x, int y);
@@ -144,7 +193,8 @@ int		ft_is_on_contour(t_game *game, int pos[2]);
 // TOOLS
 int		ft_get_matrix_size(char **matrix);
 char	**ft_copy_matrix(char **matrix);
-void	ft_lstprint(t_list *lst);
+void	ft_free_matrix(char **matrix);
+void	ft_free_matrix_with_indice(char **matrix, int i);
 void	ft_matrixprint(char **matrix);
 
 

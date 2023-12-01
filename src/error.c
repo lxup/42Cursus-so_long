@@ -6,7 +6,7 @@
 /*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 18:18:26 by lquehec           #+#    #+#             */
-/*   Updated: 2023/12/01 16:29:45 by lquehec          ###   ########.fr       */
+/*   Updated: 2023/12/01 17:14:05 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	ft_error_mlx(int error)
 		ft_putstr_fd("Error during init of MLX", 2);
 	if (error == MLX_NEW_WINDOW_ERR)
 		ft_putstr_fd("Error creating new window with MLX", 2);
+	if (error == SPRITE_NEW_ERR)
+		ft_putstr_fd("Coulnd't find the sprite: ", 2);
 }
 
 void	ft_error(int error, char *param)

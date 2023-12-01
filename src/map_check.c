@@ -6,7 +6,7 @@
 /*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 19:33:10 by lquehec           #+#    #+#             */
-/*   Updated: 2023/12/01 15:36:07 by lquehec          ###   ########.fr       */
+/*   Updated: 2023/12/01 19:09:49 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	ft_check_map_elem(t_game *game, char c, int pos[2])
 		game->map->e_count++;
 	else if (c == 'P')
 	{
-		game->player->position->y = pos[0];
-		game->player->position->x = pos[1];
+		game->player->position.y = pos[0];
+		game->player->position.x = pos[1];
 		game->map->p_count++;
 	}
 	else if (c == 'C')
@@ -56,8 +56,8 @@ void	ft_check_map_solvability(t_game *game)
 	map = ft_copy_matrix(game->map->items);
 	if (!map)
 		ft_exit(game, MEMORY_ERR, NULL);
-	if (!ft_map_path_finder(game, map, game->player->position->x,
-			game->player->position->y))
+	if (!ft_map_path_finder(game, map, game->player->position.x,
+			game->player->position.y))
 	{
 		ft_free_matrix(map);
 		ft_exit(game, MAP_ERR, "Map is not solvable.");

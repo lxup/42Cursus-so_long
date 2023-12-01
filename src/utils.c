@@ -6,7 +6,7 @@
 /*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:48:47 by lquehec           #+#    #+#             */
-/*   Updated: 2023/12/01 15:58:06 by lquehec          ###   ########.fr       */
+/*   Updated: 2023/12/01 19:56:44 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,27 @@ char	**ft_copy_matrix(char **matrix)
 	return (new_matrix);
 }
 
-void	ft_lstprint(t_list *lst)
+void	ft_free_matrix_with_indice(char **matrix, int i)
 {
-	while (lst)
+	while (i > 0)
 	{
-		ft_putstr_fd((char *)lst->content, 1);
-		ft_putstr_fd("\n", 1);
-		lst = lst->next;
+		free(matrix[i]);
+		i--;
 	}
+	free(matrix);
+}
+
+void	ft_free_matrix(char **matrix)
+{
+	int	i;
+
+	i = 0;
+	while (matrix && matrix[i])
+	{
+		free(matrix[i]);
+		i++;
+	}
+	free(matrix);
 }
 
 void	ft_matrixprint(char **matrix)

@@ -6,48 +6,11 @@
 /*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 18:18:34 by lquehec           #+#    #+#             */
-/*   Updated: 2023/12/01 16:52:58 by lquehec          ###   ########.fr       */
+/*   Updated: 2023/12/01 19:58:56 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-void	ft_free_matrix_with_indice(char **matrix, int i)
-{
-	while (i > 0)
-	{
-		free(matrix[i]);
-		i--;
-	}
-	free(matrix);
-}
-
-// void	ft_free_matrix(char ***matrix)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (matrix && matrix[0] && matrix[0][i])
-// 	{
-// 		free(matrix[0][i]);
-// 		i++;
-// 	}
-// 	if (matrix && matrix[0])
-// 		free(matrix[0]);
-// 	matrix = NULL;
-// }
-void	ft_free_matrix(char **matrix)
-{
-	int	i;
-
-	i = 0;
-	while (matrix && matrix[i])
-	{
-		free(matrix[i]);
-		i++;
-	}
-	free(matrix);
-}
 
 void	ft_free_map(t_map *map)
 {
@@ -60,11 +23,36 @@ void	ft_free_map(t_map *map)
 	free(map);
 }
 
-void	ft_free_player(t_char *player)
+void	ft_free_player(t_game *game)
 {
-	if (player->position)
-		free(player->position);
-	free(player);
+	if (game->player)
+	{
+		if (game->player->sprite_front.img)
+			mlx_destroy_image(game->mlx_ptr, game->player->sprite_front.img);
+		if (game->player->sprite_back.img)
+			mlx_destroy_image(game->mlx_ptr, game->player->sprite_back.img);
+		if (game->player->sprite_left.img)
+			mlx_destroy_image(game->mlx_ptr, game->player->sprite_left.img);
+		if (game->player->sprite_right.img)
+			mlx_destroy_image(game->mlx_ptr, game->player->sprite_right.img);
+		free(game->player);
+	}
+}
+
+void	ft_free_textures(t_game *game)
+{
+	if (game->textures)
+	{
+		if (game->textures->wall.img)
+			mlx_destroy_image(game->mlx_ptr, game->textures->wall.img);
+		if (game->textures->floor.img)
+			mlx_destroy_image(game->mlx_ptr, game->textures->floor.img);
+		if (game->textures->coins.img)
+			mlx_destroy_image(game->mlx_ptr, game->textures->coins.img);
+		if (game->textures->exit.img)
+			mlx_destroy_image(game->mlx_ptr, game->textures->exit.img);
+		free(game->textures);
+	}
 }
 
 void	ft_free_game(t_game *game)
@@ -72,11 +60,13 @@ void	ft_free_game(t_game *game)
 	if (game->map)
 		ft_free_map(game->map);
 	if (game->player)
-		ft_free_player(game->player);
-	if (game->win_ptr)
-		mlx_destroy_window(game->mlx_ptr, game->win_ptr);
+		ft_free_player(game);
+	if (game->textures)
+		ft_free_textures(game);
 	if (game->mlx_ptr)
 	{
+		if (game->win_ptr)
+			mlx_destroy_window(game->mlx_ptr, game->win_ptr);
 		mlx_destroy_display(game->mlx_ptr);
 		free(game->mlx_ptr);
 	}
