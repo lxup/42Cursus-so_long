@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lquehec <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 20:08:13 by lquehec           #+#    #+#             */
-/*   Updated: 2023/11/30 20:29:57 by lquehec          ###   ########.fr       */
+/*   Updated: 2023/12/01 11:00:06 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@ static void	ft_create_line(t_lines *list, char **line)
 		while (list->content[i])
 		{
 			if (list->content[i] == '\n')
+			{
+				len++;
 				break ;
+			}
 			len++;
 			i++;
 		}
@@ -57,7 +60,10 @@ void	ft_get_line(t_lines *list, char **line)
 		while (list->content[i])
 		{
 			if (list->content[i] == '\n')
+			{
+				(*line)[j++] = list->content[i];
 				break ;
+			}
 			(*line)[j++] = list->content[i++];
 		}
 		list = list->next;

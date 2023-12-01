@@ -1,28 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   map_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lquehec <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/27 18:18:26 by lquehec           #+#    #+#             */
-/*   Updated: 2023/12/01 14:05:42 by lquehec          ###   ########.fr       */
+/*   Created: 2023/12/01 12:14:45 by lquehec           #+#    #+#             */
+/*   Updated: 2023/12/01 12:16:26 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	ft_error(int error, char *param)
+int	is_valid_move(t_game *game, char **map, int x, int y)
 {
-	if (error == MEMORY_ERR)
-		ft_putstr_fd("DAMN, no memory left on device", 2);
-	if (error == ARGS_ERR)
-		ft_putstr_fd("Mhh, bro...give me valid arguments, like: ", 2);
-	if (error == FILE_ERR)
-		ft_putstr_fd("Well, there is something wrong with this file: ", 2);
-	if (error == MAP_ERR)
-		ft_putstr_fd("Ur map suck bro: ", 2);
-	if (param)
-		ft_putstr_fd(param, 2);
-	ft_putstr_fd("\n", 2);
+	return (x >= 0
+		&& x < game->map->size->x
+		&& y >= 0
+		&& y < game->map->size->y
+		&& map[y][x] != '1'
+		&& map[y][x] != 'V');
+}
+
+int	ft_is_on_contour(t_game *game, int pos[2])
+{
+	if (pos[0] == 0 || pos[1] == 0
+		|| pos[0] == (game->map->size->y - 1)
+		|| pos[1] == (game->map->size->x - 1))
+		return (1);
+	return (0);
 }

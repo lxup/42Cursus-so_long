@@ -3,16 +3,22 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+         #
+#    By: lquehec <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/27 17:38:15 by lquehec           #+#    #+#              #
-#    Updated: 2023/11/30 21:32:34 by lquehec          ###   ########.fr        #
+#    Updated: 2023/12/01 12:19:39 by lquehec          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+OS := $(shell uname)
 SRCS_DIR	= ./src/
 HEADER_DIR	= ./includes/
 MLX_DIR =  ./mlx/
+ifeq ($(OS), Darwin)
+    MLX_DIR = ./mlx_opengl/
+else
+    MLX_DIR = ./mlx/
+endif
 LIBFT_DIR	= ./libft/
 
 SRCS 		= $(addprefix $(SRCS_DIR),\
@@ -21,20 +27,26 @@ SRCS 		= $(addprefix $(SRCS_DIR),\
 				exit.c \
 				error.c \
 				free.c \
-				map.c )
+				map_get.c \
+				map_check.c \
+				map_utils.c \
+				utils.c )
 
 OBJS		= $(SRCS:.c=.o)
 
 CC			= cc
 RM			= rm -f
 
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= -Wall -Wextra -Werror -Imlx
 
 # LIBRARY
-INCLUDES = -I/usr/include -Imlx
 MAKE_MLX	= make -C $(MLX_DIR)
 MLX_A		= $(MLX_DIR)libmlx.a
-MLX_FLAGS	= -I -g3 -L /usr/X11/lib -Lincludes -L./mlx -lmlx -Imlx -lXext -lX11 -lz -lm
+ifeq ($(OS), Darwin)
+	MLX_FLAGS	= -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
+else
+	MLX_FLAGS	= -L$(MLX_DIR) -I -g3 -L /usr/X11/lib -L$(HEADER_DIR) -L$(MLX_DIR) -lmlx -I$(MLX_DIR) -lXext -lX11 -lz -lm
+endif
 # LIBFT
 MAKE_LIBFT	= make -s -C $(LIBFT_DIR)
 LIBFT_A		= $(LIBFT_DIR)libft.a
@@ -47,7 +59,7 @@ NAME		= so_long
 $(NAME):	$(OBJS)
 			$(MAKE_LIBFT) all bonus
 			$(MAKE_MLX)
-			$(CC) $(CFLAGS) $(MLX_FLAGS) -I $(HEADER_DIR) $(OBJS) $(LIBFT_A) $(MLX_A) -o $(NAME)
+			$(CC) $(CFLAGS) -I $(HEADER_DIR) -I $(MLX_DIR) $(OBJS) $(LIBFT_A) $(MLX_A) $(MLX_FLAGS)  -o $(NAME)
 
 all: 		$(NAME)
 
@@ -59,7 +71,7 @@ clean:
 fclean:		clean
 			$(RM) $(NAME)
 			$(MAKE_LIBFT) fclean
-			# $(MAKE_MLX) fclean
+			# $(MAKE_MLX) clean
 
 re:			fclean all
 

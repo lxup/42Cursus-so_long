@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lquehec <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:43:05 by lquehec           #+#    #+#             */
-/*   Updated: 2023/11/30 22:05:59 by lquehec          ###   ########.fr       */
+/*   Updated: 2023/12/01 13:55:57 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,17 @@
 # define SO_LONG_H
 
 // LIB
-# include "../mlx/mlx.h"
-# include "../mlx/mlx_int.h"
+# ifdef __APPLE__
+# 	include <OpenGL/gl.h>
+#	include <mlx.h>
+// #   include "../mlx_opengl/mlx.h"
+// #   include "../mlx_opengl/mlx_int.h"
+# else
+#   include "../mlx/mlx.h"
+// #   include "../mlx/mlx_int.h"
+# endif
+// # include "../mlx/mlx.h"
+// # include "../mlx/mlx_int.h"
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
@@ -24,6 +33,9 @@
 
 // A DELETTTTEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
 # include <stdio.h>
+
+// PROJECT
+# define FILE_EXTENSION		".ber"
 
 # define KEY_ESC			65307
 # define KEY_W				119
@@ -73,8 +85,9 @@ typedef struct s_char
 typedef struct s_map
 {
 	t_vector			*size;
-	t_list				*items;
-	// char				**items;
+	int					fd;
+	// t_list				*items;
+	char				**items;
 	int					e_count;
 	int					p_count;
 	int					c_count;
@@ -105,14 +118,23 @@ void	ft_error(int error, char *param);
 void	ft_free_game(t_game *game);
 void	ft_free_map(t_map *map);
 void	ft_free_matrix(char ***matrix);
+void	ft_free_matrix_with_indice(char **matrix, int i);
 
-// MAP
+// MAP_GET
 void	ft_get_map(t_game *game, char *map_path);
+
+// MAP_CHECK
 void	ft_check_map(t_game *game);
 
+// MAP_UTILS
+int		is_valid_move(t_game *game, char **map, int x, int y);
+int		ft_is_on_contour(t_game *game, int pos[2]);
 
 // TOOLS
+int		ft_get_matrix_size(char **matrix);
+char	**ft_copy_matrix(char **matrix);
 void	ft_lstprint(t_list *lst);
+void	ft_matrixprint(char **matrix);
 
 
 #endif
