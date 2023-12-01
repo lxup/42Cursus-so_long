@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lquehec <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 21:24:36 by lquehec           #+#    #+#             */
-/*   Updated: 2023/12/01 14:06:45 by lquehec          ###   ########.fr       */
+/*   Updated: 2023/12/01 15:39:17 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ t_game	*ft_init_game(void)
 		return (ft_exit(NULL, MEMORY_ERR, NULL));
 	game->mlx_ptr = NULL;
 	game->win_ptr = NULL;
+	game->map = NULL;
 	return (game);
 }
 

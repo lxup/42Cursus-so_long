@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lquehec <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 18:18:34 by lquehec           #+#    #+#             */
-/*   Updated: 2023/12/01 14:06:20 by lquehec          ###   ########.fr       */
+/*   Updated: 2023/12/01 15:55:57 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,25 +22,37 @@ void	ft_free_matrix_with_indice(char **matrix, int i)
 	free(matrix);
 }
 
-void	ft_free_matrix(char ***matrix)
+// void	ft_free_matrix(char ***matrix)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (matrix && matrix[0] && matrix[0][i])
+// 	{
+// 		free(matrix[0][i]);
+// 		i++;
+// 	}
+// 	if (matrix && matrix[0])
+// 		free(matrix[0]);
+// 	matrix = NULL;
+// }
+void	ft_free_matrix(char **matrix)
 {
 	int	i;
 
 	i = 0;
-	while (matrix && matrix[0] && matrix[0][i])
+	while (matrix && matrix[i])
 	{
-		free(matrix[0][i]);
+		free(matrix[i]);
 		i++;
 	}
-	if (matrix && matrix[0])
-		free(matrix[0]);
-	matrix = NULL;
+	free(matrix);
 }
 
 void	ft_free_map(t_map *map)
 {
 	if (map->items)
-		ft_free_matrix(&map->items);
+		ft_free_matrix(map->items);
 	if (map->size)
 		free(map->size);
 	if (map->fd)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lquehec <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:43:05 by lquehec           #+#    #+#             */
-/*   Updated: 2023/12/01 13:55:57 by lquehec          ###   ########.fr       */
+/*   Updated: 2023/12/01 15:24:12 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,8 @@ void	ft_error(int error, char *param);
 // FREE
 void	ft_free_game(t_game *game);
 void	ft_free_map(t_map *map);
-void	ft_free_matrix(char ***matrix);
+// void	ft_free_matrix(char ***matrix);
+void	ft_free_matrix(char **matrix);
 void	ft_free_matrix_with_indice(char **matrix, int i);
 
 // MAP_GET
