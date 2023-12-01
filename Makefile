@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lquehec <marvin@42.fr>                     +#+  +:+       +#+         #
+#    By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/27 17:38:15 by lquehec           #+#    #+#              #
-#    Updated: 2023/12/01 12:19:39 by lquehec          ###   ########.fr        #
+#    Updated: 2023/12/01 16:23:19 by lquehec          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRCS 		= $(addprefix $(SRCS_DIR),\
 				map_get.c \
 				map_check.c \
 				map_utils.c \
+				mlx.c \
 				utils.c )
 
 OBJS		= $(SRCS:.c=.o)

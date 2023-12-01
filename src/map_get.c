@@ -3,24 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   map_get.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lquehec <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 12:18:02 by lquehec           #+#    #+#             */
-/*   Updated: 2023/12/01 14:00:15 by lquehec          ###   ########.fr       */
+/*   Updated: 2023/12/01 16:48:10 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	ft_map_check_extension(char *map_path)
+void	ft_map_check_extension(t_game *game, char *map_path)
 {
 	int	i;
 
 	i = ft_strlen(map_path) - 4;
 	if (i < 0)
-		ft_exit(NULL, FILE_ERR, "File extension need to be a .ber");
+		ft_exit(game, FILE_ERR, "File extension need to be a .ber");
 	if (ft_strncmp(map_path + i, FILE_EXTENSION, ft_strlen(FILE_EXTENSION)))
-		ft_exit(NULL, FILE_ERR, "File extension need to be a .ber");
+		ft_exit(game, FILE_ERR, "File extension need to be a .ber");
 }
 
 char	*ft_map_check_file(t_game *game, char *map_path)
@@ -56,7 +56,7 @@ void	ft_get_map(t_game *game, char *map_path)
 {
 	char	*buffer;
 
-	ft_map_check_extension(map_path);
+	ft_map_check_extension(game, map_path);
 	buffer = ft_map_check_file(game, map_path);
 	game->map->items = ft_split(buffer, '\n');
 	free(buffer);

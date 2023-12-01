@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lquehec <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:47:10 by lquehec           #+#    #+#             */
-/*   Updated: 2023/12/01 14:09:04 by lquehec          ###   ########.fr       */
+/*   Updated: 2023/12/01 16:41:36 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int	on_keypress(int keycode, t_game *game)
 {
 	printf("Pressed key: %d\\n", keycode);
 	if (keycode == KEY_ESC)
-		on_destroy(game);
+		return (*(int *)ft_exit(game, SUCCESS, NULL));
+		// on_destroy(game);
 	return (0);
 }
 
@@ -55,6 +56,9 @@ int	main(int ac, char **av)
 	game = ft_init();
 	ft_get_map(game, av[1]);
 	ft_check_map(game);
-	ft_matrixprint(game->map->items);
+	ft_init_mlx(game);
+	// ft_matrixprint(game->map->items);
+	mlx_hook(game->win_ptr, KeyPress, KeyPressMask, on_keypress, game);
+	mlx_loop(game->mlx_ptr);
 	return (*(int *)ft_exit(game, SUCCESS, NULL));
 }

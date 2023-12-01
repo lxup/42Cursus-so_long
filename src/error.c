@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lquehec <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 18:18:26 by lquehec           #+#    #+#             */
-/*   Updated: 2023/12/01 14:05:42 by lquehec          ###   ########.fr       */
+/*   Updated: 2023/12/01 16:29:45 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+void	ft_error_mlx(int error)
+{
+	if (error == MLX_INIT_ERR)
+		ft_putstr_fd("Error during init of MLX", 2);
+	if (error == MLX_NEW_WINDOW_ERR)
+		ft_putstr_fd("Error creating new window with MLX", 2);
+}
 
 void	ft_error(int error, char *param)
 {
@@ -22,6 +30,8 @@ void	ft_error(int error, char *param)
 		ft_putstr_fd("Well, there is something wrong with this file: ", 2);
 	if (error == MAP_ERR)
 		ft_putstr_fd("Ur map suck bro: ", 2);
+	if (error <= MLX_INIT_ERR && error >= MLX_NEW_WINDOW_ERR)
+		ft_error_mlx(error);
 	if (param)
 		ft_putstr_fd(param, 2);
 	ft_putstr_fd("\n", 2);

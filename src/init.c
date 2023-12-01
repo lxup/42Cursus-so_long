@@ -6,7 +6,7 @@
 /*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 21:24:36 by lquehec           #+#    #+#             */
-/*   Updated: 2023/12/01 15:39:17 by lquehec          ###   ########.fr       */
+/*   Updated: 2023/12/01 16:52:03 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,11 @@ t_map	*ft_init_map(t_game *game)
 	map->p_count = 0;
 	map->c_count = 0;
 	map->items = NULL;
+	map->fd = 0;
 	return (map);
 }
+
+
 
 t_game	*ft_init_game(void)
 {

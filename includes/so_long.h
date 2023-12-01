@@ -6,7 +6,7 @@
 /*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:43:05 by lquehec           #+#    #+#             */
-/*   Updated: 2023/12/01 15:24:12 by lquehec          ###   ########.fr       */
+/*   Updated: 2023/12/01 16:36:43 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,15 @@
 
 // LIB
 # ifdef __APPLE__
-# 	include <OpenGL/gl.h>
 #	include <mlx.h>
+#	include <mlx_int.h>
+// # 	include <OpenGL/gl.h>
 // #   include "../mlx_opengl/mlx.h"
 // #   include "../mlx_opengl/mlx_int.h"
 # else
-#   include "../mlx/mlx.h"
+#	include <mlx.h>
+#	include <mlx_int.h>
+// #   include "../mlx/mlx.h"
 // #   include "../mlx/mlx_int.h"
 # endif
 // # include "../mlx/mlx.h"
@@ -36,6 +39,9 @@
 
 // PROJECT
 # define FILE_EXTENSION		".ber"
+# define WINDOW_TITLE		"salam"
+# define WINDOW_WIDTH		1920
+# define WINDOW_HEIGHT		1080
 
 # define KEY_ESC			65307
 # define KEY_W				119
@@ -57,6 +63,9 @@ enum e_errors
 	FILE_ERR = -12,
 	// MAP ERROR BEGIN AT -20
 	MAP_ERR = -20,
+	// MLX ERROR BEGIN AT -30
+	MLX_INIT_ERR = -30,
+	MLX_NEW_WINDOW_ERR = -31,
 };
 
 typedef struct s_vector
@@ -84,13 +93,12 @@ typedef struct s_char
 
 typedef struct s_map
 {
-	t_vector			*size;
-	int					fd;
-	// t_list				*items;
-	char				**items;
-	int					e_count;
-	int					p_count;
-	int					c_count;
+	t_vector	*size;
+	int			fd;
+	char		**items;
+	int			e_count;
+	int			p_count;
+	int			c_count;
 }	t_map;
 
 typedef struct s_game
@@ -98,7 +106,6 @@ typedef struct s_game
 	void		*mlx_ptr; // MLX pointer
 	void		*win_ptr; // MLX window pointer
 	t_map		*map;
-	// void		*textures[5]; // MLX image pointers (on the stack)
 	t_char		*player;
 	int			total_moves;
 }	t_game;
@@ -107,6 +114,9 @@ typedef struct s_game
 t_game	*ft_init(void);
 t_game	*ft_init_game(void);
 t_map	*ft_init_map(t_game *game);
+
+// INIT GAME
+void	ft_init_mlx(t_game *game);
 
 // EXIT
 void	*ft_exit(t_game *game, int error, char *param);

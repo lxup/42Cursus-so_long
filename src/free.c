@@ -6,7 +6,7 @@
 /*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 18:18:34 by lquehec           #+#    #+#             */
-/*   Updated: 2023/12/01 15:55:57 by lquehec          ###   ########.fr       */
+/*   Updated: 2023/12/01 16:52:58 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	ft_free_map(t_map *map)
 		ft_free_matrix(map->items);
 	if (map->size)
 		free(map->size);
-	if (map->fd)
+	if (map->fd > 0)
 		close(map->fd);
 	free(map);
 }
@@ -73,5 +73,12 @@ void	ft_free_game(t_game *game)
 		ft_free_map(game->map);
 	if (game->player)
 		ft_free_player(game->player);
+	if (game->win_ptr)
+		mlx_destroy_window(game->mlx_ptr, game->win_ptr);
+	if (game->mlx_ptr)
+	{
+		mlx_destroy_display(game->mlx_ptr);
+		free(game->mlx_ptr);
+	}
 	free(game);
 }
