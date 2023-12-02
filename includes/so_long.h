@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lquehec <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:43:05 by lquehec           #+#    #+#             */
-/*   Updated: 2023/12/01 19:56:55 by lquehec          ###   ########.fr       */
+/*   Updated: 2023/12/02 02:02:44 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,13 @@
 
 // LIB
 # ifdef __APPLE__
-#	include <mlx.h>
-#	include <mlx_int.h>
-// # 	include <OpenGL/gl.h>
-// #   include "../mlx_opengl/mlx.h"
-// #   include "../mlx_opengl/mlx_int.h"
-# else
-#	include <mlx.h>
-#	include <mlx_int.h>
-// #   include "../mlx/mlx.h"
-// #   include "../mlx/mlx_int.h"
+// #	include "../mlx-macos/mlx.h"
+#	include "../mlx-opengl/mlx.h"
+#	define OS "macos"
+# elif __linux__
+#  	include "../mlx-linux/mlx.h"
+#	define OS "linux"
 # endif
-// # include "../mlx/mlx.h"
-// # include "../mlx/mlx_int.h"
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
@@ -45,11 +39,12 @@
 # define WALL_XPM			"./assets/wall/wall_1.xpm"
 # define FLOOR_XPM			"./assets/floor/floor_1.xpm"
 # define COINS_XPM			"./assets/coins/coin_1.xpm"
-# define EXIT_XPM			"./assets/exit/exit_1.xpm"
-# define PLAYER_FRONT_XPM	"./assets/exit/exit_1.xpm"
-# define PLAYER_BACK_XPM	"./assets/exit/exit_1.xpm"
-# define PLAYER_LEFT_XPM	"./assets/exit/exit_1.xpm"
-# define PLAYER_RIGHT_XPM	"./assets/exit/exit_1.xpm"
+# define EXIT_OPEN_XPM		"./assets/exit/exit_open.xpm"
+# define EXIT_CLOSED_XPM	"./assets/exit/exit_closed.xpm"
+# define PLAYER_FRONT_XPM	"./assets/characters/fox/fox_front_idle_00.xpm"
+# define PLAYER_BACK_XPM	"./assets/characters/fox/fox_back_idle_00.xpm"
+# define PLAYER_LEFT_XPM	"./assets/characters/fox/fox_left_idle_00.xpm"
+# define PLAYER_RIGHT_XPM	"./assets/characters/fox/fox_right_idle_00.xpm"
 
 // MAP SETTINGS
 # define WALL				'1'
@@ -65,16 +60,29 @@
 # define DIRECTION_RIGHT	4
 
 // KEYS
-# define KEY_ESC			65307
-# define KEY_Q				113
-# define KEY_W				119
-# define KEY_A				97
-# define KEY_S				115
-# define KEY_D				100
-# define KEY_ARROW_TOP		65362
-# define KEY_ARROW_BOT		65364
-# define KEY_ARROW_LEFT		65361
-# define KEY_ARROW_RIGHT	65363
+# ifdef __APPLE__
+#	define KEY_ESC			53
+#	define KEY_Q			12
+#	define KEY_W			13
+#	define KEY_A			0
+#	define KEY_S			1
+#	define KEY_D			2
+#	define KEY_ARROW_TOP	126
+#	define KEY_ARROW_BOT	125
+#	define KEY_ARROW_LEFT	123
+#	define KEY_ARROW_RIGHT	124
+# elif __linux__
+#	define KEY_ESC			65307
+#	define KEY_Q			113
+#	define KEY_W			119
+#	define KEY_A			97
+#	define KEY_S			115
+#	define KEY_D			100
+#	define KEY_ARROW_TOP	65362
+#	define KEY_ARROW_BOT	65364
+#	define KEY_ARROW_LEFT	65361
+#	define KEY_ARROW_RIGHT	65363
+# endif
 
 # define IMG_WIDTH			32
 # define IMG_HEIGHT			32
@@ -138,7 +146,8 @@ typedef struct s_textures
 	t_image		wall;
 	t_image		floor;
 	t_image		coins;
-	t_image		exit;
+	t_image		exit_open;
+	t_image		exit_closed;
 }	t_textures;
 
 typedef struct s_game
@@ -148,6 +157,7 @@ typedef struct s_game
 	t_map		*map;
 	t_char		*player;
 	t_textures	*textures;
+	int			moves[4][2];
 }	t_game;
 
 // INIT

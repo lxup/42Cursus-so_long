@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gameplay.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lquehec <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 19:54:08 by lquehec           #+#    #+#             */
-/*   Updated: 2023/12/01 20:08:26 by lquehec          ###   ########.fr       */
+/*   Updated: 2023/12/02 02:04:01 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ void	player_move(t_game *game, int y, int x, int direction)
 		game->player->position.y = y;
 		game->map->items[y][x] = PLAYER;
 		game->player->moves_count++;
-		render(game);
-	}	
+	}
 }
 
 int	on_keypress(int keycode, t_game *game)
@@ -46,7 +45,7 @@ int	on_keypress(int keycode, t_game *game)
 			game->player->position.x, DIRECTION_BOT);
 	if (keycode == KEY_A || keycode == KEY_ARROW_LEFT)
 		player_move(game, game->player->position.y, \
-		game->player->position.x - 1, DIRECTION_BOT);
+		game->player->position.x - 1, DIRECTION_LEFT);
 	if (keycode == KEY_D || keycode == KEY_ARROW_RIGHT)
 		player_move(game, game->player->position.y, \
 		game->player->position.x + 1, DIRECTION_RIGHT);

@@ -3,23 +3,30 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+         #
+#    By: lquehec <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/27 17:38:15 by lquehec           #+#    #+#              #
-#    Updated: 2023/12/01 19:55:21 by lquehec          ###   ########.fr        #
+#    Updated: 2023/12/02 00:37:14 by lquehec          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-OS := $(shell uname)
+# COLORS
+END=$'\x1b[0m
+BOLD=$'\x1b[1m
+UNDER=$'\x1b[4m
+REV=$'\x1b[7m
+GREY=$'\x1b[30m
+RED=$'\x1b[31m
+GREEN=$'\x1b[32m
+YELLOW=$'\x1b[33m
+BLUE=$'\x1b[34m
+PURPLE=$'\x1b[35m
+CYAN=$'\x1b[36m
+WHITE=$'\x1b[37m
+
+OS 			:= $(shell uname)
 SRCS_DIR	= ./src/
 HEADER_DIR	= ./includes/
-MLX_DIR =  ./mlx/
-ifeq ($(OS), Darwin)
-    MLX_DIR = ./mlx_opengl/
-else
-    MLX_DIR = ./mlx/
-endif
-LIBFT_DIR	= ./libft/
 
 SRCS 		= $(addprefix $(SRCS_DIR),\
 				main.c \
@@ -39,43 +46,63 @@ OBJS		= $(SRCS:.c=.o)
 
 CC			= cc
 RM			= rm -f
+MF 			= Makefile
 
-CFLAGS		= -Wall -Wextra -Werror -Imlx
+ifeq ($(OS), Darwin)
+    CFLAGS	= -Wall -Wextra -Werror -Imlx
+else
+    CFLAGS	= -Wall -Wextra -Werror
+endif
 
 # LIBRARY
-MAKE_MLX	= make -C $(MLX_DIR)
-MLX_A		= $(MLX_DIR)libmlx.a
 ifeq ($(OS), Darwin)
-	MLX_FLAGS	= -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
+	MLX_DIR 	= ./mlx-opengl
+	MLX_FLAGS	= -framework OpenGL -framework Appkit -l z
+	MLX_PATH 	= $(MLX_DIR)/libmlx.a
+	# MLX_FLAGS	= -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
 else
-	MLX_FLAGS	= -L$(MLX_DIR) -I -g3 -L /usr/X11/lib -L$(HEADER_DIR) -L$(MLX_DIR) -lmlx -I$(MLX_DIR) -lXext -lX11 -lz -lm
+	MLX_DIR 	= ./mlx-linux
+	MLX_FLAGS	= -lXext -lX11 -lm -lbsd
+	MLX_PATH	= $(MLX_DIR)/libmlx.a
+	# MLX_FLAGS	= -L$(MLX_DIR) -I -g3 -L /usr/X11/lib -L$(HEADER_DIR) -L$(MLX_DIR) -lmlx -I$(MLX_DIR) -lXext -lX11 -lz -lm
 endif
+MAKE_MLX	= make -C $(MLX_DIR)
+
 # LIBFT
+LIBFT_DIR	= ./libft
 MAKE_LIBFT	= make -s -C $(LIBFT_DIR)
-LIBFT_A		= $(LIBFT_DIR)libft.a
+LIBFT_PATH	= $(LIBFT_DIR)/libft.a
 
 NAME		= so_long
 
 .c.o:
-			$(CC) $(CFLAGS) -I $(HEADER_DIR) -c $< -o $(<:.c=.o)
+			@/bin/echo -n .
+			@$(CC) $(CFLAGS) -I $(HEADER_DIR) -c $< -o $(<:.c=.o)
 
-$(NAME):	$(OBJS)
-			$(MAKE_LIBFT) all bonus
-			$(MAKE_MLX)
-			$(CC) $(CFLAGS) -I $(HEADER_DIR) -I $(MLX_DIR) $(OBJS) $(LIBFT_A) $(MLX_A) $(MLX_FLAGS)  -o $(NAME)
+$(NAME):	$(MF) $(OBJS) libft mlx
+			@$(CC) $(CFLAGS) $(OBJS) $(LIBFT_PATH) $(MLX_PATH) $(MLX_FLAGS)  -o $(NAME)
+			@echo "\n${GREEN}> so_long was successfuly compiled 🎉${END}"
 
 all: 		$(NAME)
 
 clean:
-			$(RM) $(OBJS)
-			$(MAKE_LIBFT) clean
-			# $(MAKE_MLX) clean
+			@$(RM) $(OBJS)
+			@$(MAKE_LIBFT) clean
+			@$(MAKE_MLX) clean
+			@echo "${YELLOW}> All objects files of so_long have been deleted ❌${END}"
 
 fclean:		clean
-			$(RM) $(NAME)
-			$(MAKE_LIBFT) fclean
-			# $(MAKE_MLX) clean
+			@$(RM) $(NAME)
+			@$(MAKE_LIBFT) fclean
+			@$(MAKE_MLX) clean
+			@echo "${YELLOW}> Cleaning of so_long has been done ❌${END}"
 
 re:			fclean all
 
-.PHONY: all clean fclean re
+libft:
+			@$(MAKE_LIBFT) all bonus
+
+mlx:
+			@$(MAKE_MLX)
+
+.PHONY: all clean fclean re libft

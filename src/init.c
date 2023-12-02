@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lquehec <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 21:24:36 by lquehec           #+#    #+#             */
-/*   Updated: 2023/12/01 20:09:32 by lquehec          ###   ########.fr       */
+/*   Updated: 2023/12/02 01:11:30 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ void	ft_init_textures(t_game *game)
 	game->textures->wall.img = NULL;
 	game->textures->floor.img = NULL;
 	game->textures->coins.img = NULL;
-	game->textures->exit.img = NULL;
+	game->textures->exit_open.img = NULL;
+	game->textures->exit_closed.img = NULL;
 }
 
 t_map	*ft_init_map(t_game *game)
@@ -70,6 +71,14 @@ t_game	*ft_init_game(void)
 	game->map = NULL;
 	game->player = NULL;
 	game->textures = NULL;
+	game->moves[0][0] = -1;
+	game->moves[0][1] = 0;
+	game->moves[1][0] = 1;
+	game->moves[1][1] = 0;
+	game->moves[2][0] = 0;
+	game->moves[2][1] = -1;
+	game->moves[3][0] = 0;
+	game->moves[3][1] = 1;
 	return (game);
 }
 

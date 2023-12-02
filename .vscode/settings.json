@@ -1,8 +1,15 @@
 {
 	"files.associations": {
+		"*.json.liquid": "json",
+		"*.yaml.liquid": "yaml",
+		"*.md.liquid": "markdown",
+		"*.js.liquid": "liquid-javascript",
+		"*.css.liquid": "liquid-css",
+		"*.scss.liquid": "liquid-scss",
 		"so_long.h": "c",
 		"get_next_line.h": "c",
 		"libft.h": "c",
-		"mlx.h": "c"
+		"mlx.h": "c",
+		"mlx_int.h": "c"
 	}
 }

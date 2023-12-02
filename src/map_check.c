@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_check.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lquehec <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 19:33:10 by lquehec           #+#    #+#             */
-/*   Updated: 2023/12/01 19:09:49 by lquehec          ###   ########.fr       */
+/*   Updated: 2023/12/02 01:16:24 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	ft_check_map_elem(t_game *game, char c, int pos[2])
 int	ft_map_path_finder(t_game *game, char **map, int x, int y)
 {
 	int	i;
-	int	moves[4][2] = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
 
 	i = -1;
 	if (!is_valid_move(game, map, x, y))
@@ -42,10 +41,9 @@ int	ft_map_path_finder(t_game *game, char **map, int x, int y)
 		return (1);
 	map[y][x] = 'V';
 	while (++i < 4)
-	{
-		if (ft_map_path_finder(game, map, x + moves[i][1], y + moves[i][0]))
+		if (ft_map_path_finder(game, map, \
+			x + game->moves[i][1], y + game->moves[i][0]))
 			return (1);
-	}
 	return (0);
 }
 

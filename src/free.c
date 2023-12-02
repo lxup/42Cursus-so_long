@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lquehec <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 18:18:34 by lquehec           #+#    #+#             */
-/*   Updated: 2023/12/01 19:58:56 by lquehec          ###   ########.fr       */
+/*   Updated: 2023/12/02 02:09:04 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,10 @@ void	ft_free_textures(t_game *game)
 			mlx_destroy_image(game->mlx_ptr, game->textures->floor.img);
 		if (game->textures->coins.img)
 			mlx_destroy_image(game->mlx_ptr, game->textures->coins.img);
-		if (game->textures->exit.img)
-			mlx_destroy_image(game->mlx_ptr, game->textures->exit.img);
+		if (game->textures->exit_open.img)
+			mlx_destroy_image(game->mlx_ptr, game->textures->exit_open.img);
+		if (game->textures->exit_closed.img)
+			mlx_destroy_image(game->mlx_ptr, game->textures->exit_closed.img);
 		free(game->textures);
 	}
 }
@@ -67,7 +69,7 @@ void	ft_free_game(t_game *game)
 	{
 		if (game->win_ptr)
 			mlx_destroy_window(game->mlx_ptr, game->win_ptr);
-		mlx_destroy_display(game->mlx_ptr);
+		// mlx_destroy_display(game->mlx_ptr);
 		free(game->mlx_ptr);
 	}
 	free(game);

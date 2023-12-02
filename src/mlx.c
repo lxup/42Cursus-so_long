@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lquehec <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 16:18:03 by lquehec           #+#    #+#             */
-/*   Updated: 2023/12/01 20:02:02 by lquehec          ###   ########.fr       */
+/*   Updated: 2023/12/01 23:28:08 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ void	ft_init_sprites(t_game *game)
 	game->textures->wall = ft_new_sprite(WALL_XPM, game);
 	game->textures->floor = ft_new_sprite(FLOOR_XPM, game);
 	game->textures->coins = ft_new_sprite(COINS_XPM, game);
-	game->textures->exit = ft_new_sprite(EXIT_XPM, game);
+	game->textures->exit_open = ft_new_sprite(EXIT_OPEN_XPM, game);
+	game->textures->exit_closed = ft_new_sprite(EXIT_CLOSED_XPM, game);
 	game->player->sprite_front = ft_new_sprite(PLAYER_FRONT_XPM, game);
 	game->player->sprite_back = ft_new_sprite(PLAYER_BACK_XPM, game);
 	game->player->sprite_left = ft_new_sprite(PLAYER_LEFT_XPM, game);
