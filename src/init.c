@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lquehec <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 21:24:36 by lquehec           #+#    #+#             */
-/*   Updated: 2023/12/04 11:47:40 by lquehec          ###   ########.fr       */
+/*   Updated: 2023/12/04 17:59:21 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	ft_init_player(t_game *game)
 	game->player->position.x = 0;
 	game->player->position.y = 0;
 	game->player->moves_count = 0;
+	game->player->weapon_count = 0;
 	game->player->life = LIFE_COUNT;
 }
 
@@ -40,6 +41,8 @@ void	ft_init_textures(t_game *game)
 	game->textures->exit_closed.img = NULL;
 	game->textures->heart_full.img = NULL;
 	game->textures->heart_empty.img = NULL;
+	game->textures->enemy.img = NULL;
+	game->textures->weapon.img = NULL;
 }
 
 t_map	*ft_init_map(t_game *game)
@@ -57,8 +60,12 @@ t_map	*ft_init_map(t_game *game)
 	map->e_count = 0;
 	map->p_count = 0;
 	map->c_count = 0;
+	map->k_count = 0;
+	map->w_count = 0;
 	map->items = NULL;
 	map->fd = 0;
+	map->spawn.x = 0;
+	map->spawn.y = 0;
 	return (map);
 }
 
@@ -69,8 +76,10 @@ t_game	*ft_init_game(void)
 	game = (t_game *)malloc(sizeof(t_game));
 	if (game == NULL)
 		return (ft_exit(NULL, MEMORY_ERR, NULL));
-	game->mlx_ptr = NULL;
-	game->win_ptr = NULL;
+	game->win.mlx_ptr = NULL;
+	game->win.mlx_ptr = NULL;
+	game->win.width = 0;
+	game->win.height = 0;
 	game->map = NULL;
 	game->player = NULL;
 	game->textures = NULL;

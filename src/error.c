@@ -6,7 +6,7 @@
 /*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 18:18:26 by lquehec           #+#    #+#             */
-/*   Updated: 2023/12/01 17:14:05 by lquehec          ###   ########.fr       */
+/*   Updated: 2023/12/04 20:11:15 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	ft_error_mlx(int error)
 
 void	ft_error(int error, char *param)
 {
+	ft_putstr_fd("Error:\n", 2);
 	if (error == MEMORY_ERR)
 		ft_putstr_fd("DAMN, no memory left on device", 2);
 	if (error == ARGS_ERR)

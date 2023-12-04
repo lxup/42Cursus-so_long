@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lquehec <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 18:01:41 by lquehec           #+#    #+#             */
-/*   Updated: 2023/12/04 11:42:14 by lquehec          ###   ########.fr       */
+/*   Updated: 2023/12/04 18:10:25 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_render_sprite(t_game *game, t_image sprite, int line, int column)
 {
-	mlx_put_image_to_window (game->mlx_ptr, game->win_ptr, \
+	mlx_put_image_to_window (game->win.mlx_ptr, game->win.win_ptr, \
 	sprite.img, column * sprite.size.x, line * sprite.size.y);
 }
 
@@ -39,6 +39,10 @@ void	ft_get_sprite(t_game *game, int y, int x)
 		else
 			ft_render_sprite (game, game->textures->exit_closed, y, x);
 	}
+	else if (value == ENEMY)
+		ft_render_sprite(game, game->textures->enemy, y, x);
+	else if (value == WEAPON)
+		ft_render_sprite(game, game->textures->weapon, y, x);
 	else if (value == PLAYER)
 		ft_render_player(game, y, x);
 }

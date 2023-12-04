@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_check.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lquehec <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 19:33:10 by lquehec           #+#    #+#             */
-/*   Updated: 2023/12/02 01:16:24 by lquehec          ###   ########.fr       */
+/*   Updated: 2023/12/04 19:39:23 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,25 @@
 void	ft_check_map_elem(t_game *game, char c, int pos[2])
 {
 	if (ft_is_on_contour(game, pos) && c != '1')
-		ft_exit(game, MAP_ERR, "Not only wall in border");
+		ft_exit(game, MAP_ERR, "not surrounded by wall");
 	if (c == 'E')
 		game->map->e_count++;
 	else if (c == 'P')
 	{
 		game->player->position.y = pos[0];
 		game->player->position.x = pos[1];
+		game->map->spawn.y = pos[0];
+		game->map->spawn.x = pos[1];
 		game->map->p_count++;
 	}
 	else if (c == 'C')
 		game->map->c_count++;
+	else if (c == 'K')
+		game->map->k_count++;
+	else if (c == 'W')
+		game->map->w_count++;
 	else if (c != '1' && c != '0')
-		ft_exit(game, MAP_ERR, "Invalid character, use only E, P, C, 1, 0");
+		ft_exit(game, MAP_ERR, "Invalid character, use only E, P, C, 1, 0, K");
 }
 
 int	ft_map_path_finder(t_game *game, char **map, int x, int y)
@@ -77,7 +83,7 @@ void	ft_check_map(t_game *game)
 			pos[1]++;
 		}
 		if (pos[1] != game->map->size->x)
-			ft_exit(game, MAP_ERR, "All row need to have the same size.");
+			ft_exit(game, MAP_ERR, "Its has to be a rectangle, DAMN !");
 		pos[0]++;
 	}
 	if (game->map->e_count != 1
