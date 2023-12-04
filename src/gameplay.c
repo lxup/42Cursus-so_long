@@ -6,7 +6,7 @@
 /*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 19:54:08 by lquehec           #+#    #+#             */
-/*   Updated: 2023/12/04 20:46:38 by lquehec          ###   ########.fr       */
+/*   Updated: 2023/12/04 21:06:53 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,6 @@ int	on_keypress(int keycode, t_game *game)
 		player_move(game, game->player->position.y, \
 		game->player->position.x + 1, DIRECTION_RIGHT);
 	if (keycode == KEY_Q || keycode == KEY_ESC)
-		return (*(int *)ft_exit(game, SUCCESS, NULL));
+		return (on_window_close(game));
 	return (0);
 }

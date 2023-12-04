@@ -6,7 +6,7 @@
 /*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:34:55 by lquehec           #+#    #+#             */
-/*   Updated: 2023/12/04 19:35:26 by lquehec          ###   ########.fr       */
+/*   Updated: 2023/12/04 21:08:25 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@ void	ft_success(int msg)
 		ft_putstr_fd("GG, well this game suck so u probably loose ur time", 1);
 	else if (msg == LOOSE)
 		ft_putstr_fd("SHAME ON U, u die in the easiest game ever", 1);
+	else if (msg == LEAVE)
+		ft_putstr_fd("Okay this game suck but at least try to finish it", 1);
+	ft_putstr_fd("\n", 1);
 }	
 
 void	*ft_exit(t_game *game, int error, char *param)

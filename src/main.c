@@ -6,20 +6,27 @@
 /*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:47:10 by lquehec           #+#    #+#             */
-/*   Updated: 2023/12/04 19:32:12 by lquehec          ###   ########.fr       */
+/*   Updated: 2023/12/04 21:06:20 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+int	on_window_close(t_game *game)
+{
+	return (*(int *)ft_exit(game, LEAVE, NULL));
+}
+
 void	hook_register(t_game *game)
 {
 	if (ft_strncmp(OS, "linux", 5) == 0)
 	{
+		mlx_hook(game->win.win_ptr, 17, 0, on_window_close, game);
 		mlx_hook(game->win.win_ptr, 2, 1L << 0, on_keypress, game);
 	}
 	else if (ft_strncmp(OS, "macos", 5) == 0)
 	{
+		mlx_hook(game->win.win_ptr, 17, 1L << 0, on_window_close, game);
 		mlx_hook(game->win.win_ptr, 2, 0, on_keypress, game);
 	}
 }

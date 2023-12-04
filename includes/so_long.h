@@ -6,7 +6,7 @@
 /*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:43:05 by lquehec           #+#    #+#             */
-/*   Updated: 2023/12/04 20:40:50 by lquehec          ###   ########.fr       */
+/*   Updated: 2023/12/04 21:07:19 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ enum			e_msg
 {
 	SUCCESS				= 1,
 	LOOSE				= 2,
+	LEAVE				= 3,
 };
 
 // Error handling
@@ -194,6 +195,10 @@ typedef struct s_game
 	int			moves[4][2];
 }				t_game;
 
+// MAIN
+void			hook_register(t_game *game);
+int				on_window_close(t_game *game);
+
 // INIT
 t_game			*ft_init(void);
 t_game			*ft_init_game(void);
@@ -234,7 +239,7 @@ void			ft_render_interface(t_game *game);
 
 // GAMEPLAY
 void			player_move(t_game *game, int y, int x, int direction);
-void		on_enemy_move(t_game *game, int y, int x);
+void			on_enemy_move(t_game *game, int y, int x);
 t_vector		get_attack_pos(t_game *game);
 void			player_attack(t_game *game);
 int				on_keypress(int keycode, t_game *game);
