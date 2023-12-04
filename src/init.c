@@ -6,7 +6,7 @@
 /*   By: lquehec <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 21:24:36 by lquehec           #+#    #+#             */
-/*   Updated: 2023/12/02 01:11:30 by lquehec          ###   ########.fr       */
+/*   Updated: 2023/12/04 11:47:40 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	ft_init_player(t_game *game)
 	game->player->position.x = 0;
 	game->player->position.y = 0;
 	game->player->moves_count = 0;
+	game->player->life = LIFE_COUNT;
 }
 
 void	ft_init_textures(t_game *game)
@@ -37,6 +38,8 @@ void	ft_init_textures(t_game *game)
 	game->textures->coins.img = NULL;
 	game->textures->exit_open.img = NULL;
 	game->textures->exit_closed.img = NULL;
+	game->textures->heart_full.img = NULL;
+	game->textures->heart_empty.img = NULL;
 }
 
 t_map	*ft_init_map(t_game *game)

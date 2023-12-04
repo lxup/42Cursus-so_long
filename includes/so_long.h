@@ -6,7 +6,7 @@
 /*   By: lquehec <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:43:05 by lquehec           #+#    #+#             */
-/*   Updated: 2023/12/02 02:02:44 by lquehec          ###   ########.fr       */
+/*   Updated: 2023/12/04 12:56:17 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 // LIB
 # ifdef __APPLE__
-// #	include "../mlx-macos/mlx.h"
 #	include "../mlx-opengl/mlx.h"
 #	define OS "macos"
 # elif __linux__
@@ -35,12 +34,24 @@
 # define FILE_EXTENSION		".ber"
 # define WINDOW_TITLE		"so_long"
 
+// GAMEPLAY
+# define LIFE_COUNT			4
+
+// INTERFACE
+# define INTERFACE_SIZE		100
+
+
+
 // SOURCES
-# define WALL_XPM			"./assets/wall/wall_1.xpm"
+# define WALL_XPM			"./assets/water/water_1.xpm"
 # define FLOOR_XPM			"./assets/floor/floor_1.xpm"
 # define COINS_XPM			"./assets/coins/coin_1.xpm"
 # define EXIT_OPEN_XPM		"./assets/exit/exit_open.xpm"
 # define EXIT_CLOSED_XPM	"./assets/exit/exit_closed.xpm"
+
+# define HEART_FULL_XPM		"./assets/heart/heart_full.xpm"
+# define HEART_EMPTY_XPM	"./assets/heart/heart_empty.xpm"
+
 # define PLAYER_FRONT_XPM	"./assets/characters/fox/fox_front_idle_00.xpm"
 # define PLAYER_BACK_XPM	"./assets/characters/fox/fox_back_idle_00.xpm"
 # define PLAYER_LEFT_XPM	"./assets/characters/fox/fox_left_idle_00.xpm"
@@ -54,7 +65,7 @@
 # define EXIT 		 		'E'
 
 // DIRECTIONS
-# define DIRECTION_TOP	1
+# define DIRECTION_TOP		1
 # define DIRECTION_BOT		2
 # define DIRECTION_LEFT		3
 # define DIRECTION_RIGHT	4
@@ -92,13 +103,10 @@
 enum e_errors
 {
 	SUCCESS = 1,
-	// CASUAL ERROR BEGIN AT -10
 	MEMORY_ERR = -10,
 	ARGS_ERR = -11,
 	FILE_ERR = -12,
-	// MAP ERROR BEGIN AT -20
 	MAP_ERR = -20,
-	// MLX ERROR BEGIN AT -30
 	MLX_INIT_ERR = -30,
 	SPRITE_NEW_ERR = -31,
 	MLX_NEW_WINDOW_ERR = -40,
@@ -129,6 +137,7 @@ typedef struct s_char
 	int			direction;
 	t_vector	position;
 	int			moves_count;
+	int			life;
 }	t_char;
 
 typedef struct s_map
@@ -148,6 +157,8 @@ typedef struct s_textures
 	t_image		coins;
 	t_image		exit_open;
 	t_image		exit_closed;
+	t_image		heart_full;
+	t_image		heart_empty;
 }	t_textures;
 
 typedef struct s_game
@@ -188,9 +199,14 @@ void	ft_check_map(t_game *game);
 
 // RENDER
 int		render(t_game *game);
-void	ft_identify_sprite(t_game *game, int y, int x);
 void	ft_render_sprite(t_game *game, t_image sprite, int line, int column);
 void	ft_render_player(t_game *game, int y, int x);
+
+// RENDER_FLOOR
+void	ft_render_floor(t_game *game, int y, int x);
+
+// RENDER_INTERFACE
+void	ft_render_interface(t_game *game);
 
 // GAMEPLAY
 void	player_move(t_game *game, int y, int x, int direction);
@@ -206,6 +222,5 @@ char	**ft_copy_matrix(char **matrix);
 void	ft_free_matrix(char **matrix);
 void	ft_free_matrix_with_indice(char **matrix, int i);
 void	ft_matrixprint(char **matrix);
-
 
 #endif

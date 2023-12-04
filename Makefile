@@ -6,7 +6,7 @@
 #    By: lquehec <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/27 17:38:15 by lquehec           #+#    #+#              #
-#    Updated: 2023/12/02 00:37:14 by lquehec          ###   ########.fr        #
+#    Updated: 2023/12/04 11:42:36 by lquehec          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,8 @@ SRCS 		= $(addprefix $(SRCS_DIR),\
 				map_get.c \
 				map_check.c \
 				render.c \
+				render_floor.c \
+				render_interface.c \
 				gameplay.c \
 				map_utils.c \
 				mlx.c \

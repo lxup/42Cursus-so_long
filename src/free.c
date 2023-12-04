@@ -6,7 +6,7 @@
 /*   By: lquehec <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 18:18:34 by lquehec           #+#    #+#             */
-/*   Updated: 2023/12/02 02:09:04 by lquehec          ###   ########.fr       */
+/*   Updated: 2023/12/04 11:47:27 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,10 @@ void	ft_free_textures(t_game *game)
 			mlx_destroy_image(game->mlx_ptr, game->textures->exit_open.img);
 		if (game->textures->exit_closed.img)
 			mlx_destroy_image(game->mlx_ptr, game->textures->exit_closed.img);
+		if (game->textures->heart_full.img)
+			mlx_destroy_image(game->mlx_ptr, game->textures->heart_full.img);
+		if (game->textures->heart_empty.img)
+			mlx_destroy_image(game->mlx_ptr, game->textures->heart_empty.img);
 		free(game->textures);
 	}
 }
