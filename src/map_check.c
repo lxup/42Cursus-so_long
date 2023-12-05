@@ -6,7 +6,7 @@
 /*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 19:33:10 by lquehec           #+#    #+#             */
-/*   Updated: 2023/12/05 15:03:10 by lquehec          ###   ########.fr       */
+/*   Updated: 2023/12/05 20:39:14 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,25 +36,44 @@ void	ft_check_map_elem(t_game *game, char c, int pos[2])
 		ft_exit(game, MAP_ERR, "Invalid character, use only E, P, C, 1, 0, K");
 }
 
-int	ft_map_path_finder(t_game *game, t_map *map, int x, int y)
+int	ft_map_path_finder(t_game *game, char **map)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	y = 0;
+	while (y < game->map->size->y)
+	{
+		x = 0;
+		while (x < game->map->size->x && map[y][x])
+		{
+			if (map[y][x] == 'E' || map[y][x] == 'C')
+				return (0);
+			x++;
+		}
+		y++;
+	}
+	return (1);
+}
+
+int	ft_fulfill(t_game *game, char **map, int x, int y)
 {
 	int	i;
 
 	i = -1;
-	if (!is_valid_move(game, map->items, x, y))
+	if (x < 0 || y < 0 || x >= game->map->size->x || y >= game->map->size->y)
 		return (0);
-	if (map->items[y][x] == 'E')
-		map->e_count++;
-	if (map->items[y][x] == 'C')
-		map->c_count++;
-	if (map->items[y][x] == 'W')
-		map->w_count++;
-	if (map->c_count == game->map->c_count \
-		&& map->e_count == game->map->e_count)
-		return (1);
-	map->items[y][x] = 'V';
+	if (map[y][x] == '1' || map[y][x] == 'V')
+		return (0);
+	if (map[y][x] == 'E')
+	{
+		map[y][x] = 'V';
+		return (0);
+	}
+	map[y][x] = 'V';
 	while (++i < 4)
-		if (ft_map_path_finder(game, map, \
+		if (ft_fulfill(game, map, \
 			x + game->moves[i][1], y + game->moves[i][0]))
 			return (1);
 	return (0);
@@ -62,26 +81,18 @@ int	ft_map_path_finder(t_game *game, t_map *map, int x, int y)
 
 void	ft_check_map_solvability(t_game *game)
 {
-	t_map	map_check;
+	char	**map;
 
-	map_check.size = game->map->size;
-	map_check.fd = 0;
-	map_check.spawn = game->map->spawn;
-	map_check.items = ft_copy_matrix(game->map->items);
-	map_check.e_count = 0;
-	map_check.p_count = 0;
-	map_check.c_count = 0;
-	map_check.k_count = 0;
-	map_check.w_count = 0;
-	if (!map_check.items)
+	map = ft_copy_matrix(game->map->items);
+	if (!map)
 		ft_exit(game, MEMORY_ERR, NULL);
-	if (!ft_map_path_finder(game, &map_check, game->player->position.x,
-			game->player->position.y))
+	ft_fulfill(game, map, game->player->position.x, game->player->position.y);
+	if (!ft_map_path_finder(game, map))
 	{
-		ft_free_matrix(map_check.items);
+		ft_free_matrix(map);
 		ft_exit(game, MAP_ERR, "Map is not solvable.");
 	}
-	ft_free_matrix(map_check.items);
+	ft_free_matrix(map);
 }
 
 void	ft_check_map(t_game *game)
@@ -101,9 +112,13 @@ void	ft_check_map(t_game *game)
 			ft_exit(game, MAP_ERR, "Its has to be a rectangle, DAMN !");
 		pos[0]++;
 	}
-	if (game->map->e_count != 1
-		|| game->map->p_count != 1
-		|| game->map->c_count < 1)
-		ft_exit(game, MAP_ERR, "Invalid map settings number.");
+	if (game->map->e_count != 1)
+		ft_exit(game, MAP_ERR, "Need to have only one Exit (E)");
+	if (game->map->p_count != 1)
+		ft_exit(game, MAP_ERR, "Need to have only one Spawn (P)");
+	if (game->map->c_count < 1)
+		ft_exit(game, MAP_ERR, "Need to have at least one collectible (C)");
+	if (game->map->k_count && !game->map->w_count)
+		ft_exit(game, MAP_ERR, "if there is enemy u need a weapon (W)");
 	ft_check_map_solvability(game);
 }
