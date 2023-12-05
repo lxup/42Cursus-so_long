@@ -6,7 +6,7 @@
 /*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:43:05 by lquehec           #+#    #+#             */
-/*   Updated: 2023/12/05 15:05:36 by lquehec          ###   ########.fr       */
+/*   Updated: 2023/12/05 15:30:03 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # define WINDOW_TITLE 		"so_long"
 
 // GAMEPLAY
-# define LIFE_COUNT			1
+# define LIFE_COUNT			4
 
 // INTERFACE
 # define INTERFACE_SIZE		100
@@ -116,6 +116,7 @@ enum			e_errors
 	MEMORY_ERR			= -10,
 	ARGS_ERR			= -11,
 	FILE_ERR			= -12,
+	ENV_ERR				= -13,
 	MAP_ERR				= -20,
 	MLX_INIT_ERR		= -30,
 	SPRITE_NEW_ERR		= -31,

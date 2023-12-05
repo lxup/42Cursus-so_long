@@ -6,7 +6,7 @@
 /*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 18:18:26 by lquehec           #+#    #+#             */
-/*   Updated: 2023/12/04 20:11:15 by lquehec          ###   ########.fr       */
+/*   Updated: 2023/12/05 15:30:17 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	ft_error(int error, char *param)
 		ft_putstr_fd("DAMN, no memory left on device", 2);
 	if (error == ARGS_ERR)
 		ft_putstr_fd("Mhh, bro...give me valid arguments, like: ", 2);
+	if (error == ENV_ERR)
+		ft_putstr_fd("Environnement not found :(", 2);
 	if (error == FILE_ERR)
 		ft_putstr_fd("Well, there is something wrong with this file: ", 2);
 	if (error == MAP_ERR)

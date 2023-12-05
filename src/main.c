@@ -6,7 +6,7 @@
 /*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:47:10 by lquehec           #+#    #+#             */
-/*   Updated: 2023/12/05 15:02:31 by lquehec          ###   ########.fr       */
+/*   Updated: 2023/12/05 15:30:34 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,12 @@ void	hook_register(t_game *game)
 	}
 }
 
-int	main(int ac, char **av)
+int	main(int ac, char **av, char **envp)
 {
 	t_game	*game;
 
+	if (!envp)
+		return (*(int *)ft_exit(NULL, ENV_ERR, NULL));
 	if (ac != 2)
 		return (*(int *)ft_exit(NULL, ARGS_ERR, "./so_long ./map_path"));
 	game = ft_init();
