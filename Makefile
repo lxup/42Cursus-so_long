@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lquehec <marvin@42.fr>                     +#+  +:+       +#+         #
+#    By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/27 17:38:15 by lquehec           #+#    #+#              #
-#    Updated: 2023/12/04 11:42:36 by lquehec          ###   ########.fr        #
+#    Updated: 2023/12/05 21:03:24 by lquehec          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -107,4 +107,4 @@ libft:
 mlx:
 			@$(MAKE_MLX)
 
-.PHONY: all clean fclean re libft
+.PHONY: all clean fclean re libft mlx
