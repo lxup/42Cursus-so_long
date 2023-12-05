@@ -6,7 +6,7 @@
 /*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:47:10 by lquehec           #+#    #+#             */
-/*   Updated: 2023/12/04 22:09:42 by lquehec          ###   ########.fr       */
+/*   Updated: 2023/12/05 15:02:31 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	main(int ac, char **av)
 	t_game	*game;
 
 	if (ac != 2)
-		return (*(int *)ft_exit(NULL, ARGS_ERR, NULL));
+		return (*(int *)ft_exit(NULL, ARGS_ERR, "./so_long ./map_path"));
 	game = ft_init();
 	ft_get_map(game, av[1]);
 	ft_check_map(game);
